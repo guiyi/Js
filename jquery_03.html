@@ -1,0 +1,204 @@
+<html>
+<title>Jquery中的DOM操作</title>
+<head>
+<script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+<style>
+	/*获取样式和设置样式 所需的*/
+	.high{
+		font-weight: bold;
+		color: red;
+	}
+	/*追加样式 所需的*/
+	.another{
+		font-style: italic;
+		color: blue;
+	}
+</style>
+</head>
+<body>
+	<p  title="选择你最喜欢的水果.">你最喜欢的水果是？</p>
+	<ul>
+		<li title="苹果">苹果</li>
+		<li title="橘子">橘子</li>
+		<li title="菠萝">菠萝</li>
+	</ul>
+
+</body>
+
+
+<script type="text/javascript">
+	//查找元素节点
+	var $li = $("ul li:eq(1)");
+	var $li_txt =  $li.text();
+	console.log($li_txt);
+
+	//查找属性节点
+	var $para = $("p");
+	var $p_text = $para.attr("title");
+	console.log($p_text);
+
+	//创建元素节点
+	var $li_1 = $("<li></li>");
+	var $li_2 = $("<li></li>");
+	$("ul").append($li_1);
+	$("ul").append($li_2);
+	//或者 采用链式写法
+	//$("ul").append($li_1).append($li_2);
+
+	//创建文本节点
+	var $li_1 = $("<li>香蕉</li>");
+	var $li_2 = $("<li>雪梨</li>");
+	//$("ul").append($li_1);
+	//$("ul").append($li_2);
+	//或者 采用链式写法
+	$("ul").append($li_1).append($li_2);
+
+
+	//创建属性节点
+	var $li_1 = $("<li title='香蕉'>香蕉</li>");
+	var $li_2 = $("<li title='雪梨'>雪梨</li>");
+	$("ul").append($li_1);
+	$("ul").append($li_2);
+	//或者 采用链式写法
+	$("ul").append($li_1).append($li_2);
+
+	//插入节点
+	var $l_1 = $("<li title='水果1'>水果1</li>");
+	var $l_2 = $("<li title='水果2'>水果2</li>");
+	var $l_3 = $("<li title='其他'>其他</li>");
+
+	var $parent = $("ul");//获取<ul>节点，即<li>的父节点
+	var $two_l = $("ul li:eq(1)");//获取<ul>节点中第2个<li>元素节点
+	$parent.append($l_1);//append()方法将创建的第1个<li>元素添加到父元素的最后面
+	$parent.prepend($l_2);//prepend()方法将创建的第2个<li>元素添加到父元素的最前面
+	$l_3.insertAfter($two_l);//insertAfter()方法将创建的第3个<li>元素插入到获取的<li>之后
+
+	//删除节点 remove()、detach()、empty()
+	$("ul li:eq(1)").remove();
+
+	//remove()
+	var $li = $("ul li:eq(1)").remove(); //获取第二个<li>元素节点后，将它从网页中删除
+	$li.appendTo("ul");//把刚才删除的节点又重新添加到<ul>元素里，最后面
+	//可简化为
+	$("ul li:eq(1)").appendTo("ul");
+	//将<li>元素中属性title不等于“菠萝”的<li>元素全部删除
+	$("ul li").remove("li[title!=菠萝]");
+
+	//detach()
+	$("ul li").click(function(){
+		alert($(this).html);
+	})
+	var $li = $("ul li:eq(1)").detach();
+	$li.appendTo();
+
+	//empty()
+	$("ul li:eq(0)").empty();
+	var $l_1 = $("<li title='水果1'>水果1</li>");
+	var $parent = $("ul");
+	$parent.append($l_1);
+
+	//复制节点
+	$("ul li").click(function(){
+		$(this).clone().appendTo("ul");//复制当前单击的节点，并将它追加到<ul>元素中
+	})
+
+	//替换节点 replaceWith()、replaceAll(）
+	$("p").replaceWith("<strong>你最喜欢的水果是？</strong>");
+	//等价于
+	$("<strong>你最喜欢的水果是？</strong>").replaceAll("p");
+
+	//包裹节点
+	$("strong").wrap("<b></b>");
+
+
+	//属性操作
+	//获取属性和设置属性
+	var $para = $("strong");
+	var p_txt = $para.attr("title");
+	console.log(p_txt);
+	//设置属性 
+	$("strong").attr("title","aaa");
+	var $para = $("strong");
+	var p_txt = $para.attr("title");
+	console.log(p_txt);
+
+	$("strong").attr({"title":"bbb","name":"test"});
+	var $para = $("strong");
+	var p_txt = $para.attr("title");
+	var p_name = $para.attr("name");
+	console.log(p_txt,p_name);
+
+	//删除属性 
+	$("strong").removeAttr("title");
+
+	//--样式操作
+	//获取样式和设置样式
+	var p_class = $("strong").attr("class");//获取样式
+	console.log('p_class: ',p_class);
+	$("strong").attr("class","high");//设置<strong>元素的class为“high”
+	var p_class = $("strong").attr("class");//获取样式
+	console.log('p_class: ',p_class);
+
+	//追加样式
+	$("strong").addClass("another");
+
+	//移除样式
+	$("strong").removeClass("another high");
+
+	//切换样式
+	$("strong").toggleClass("another");
+
+	//判断是否含有某个样式
+	$("strong").hasClass("another");
+
+	//--设置和获取HTML、文本和值
+	//html()方法
+	var p_html = $("strong").html();//获取<strong>元素的HTML代码
+	console.log('html : ',p_html);
+
+	//text()方法
+	var p_text = $("strong").text();//获取<strong>元素的文本内容
+	console.log('text : ',p_text);
+
+	//val()方法
+
+	//遍历节点
+	//children() 用于取得匹配元素的子元素集合
+	var $body = $("body").children();
+	var $p = $("p").children();
+	var $ul = $("ul").children();
+
+	console.log($p.length);
+	console.log($ul.length);
+	for(var i=0,len=$ul.length;i<len;i++){
+		console.log($ul[i].innerHTML);
+	}
+
+	//next()方法 用于取得匹配元素后面紧邻的同辈元素
+	var $strong = $("strong").next();
+	console.log('next: ',$strong);
+
+	//prev()方法 用于取得匹配元素前面紧邻的同辈元素
+	var $ul = $("ul").prev();
+	console.log('prev: ',$ul);
+
+	//siblings()方法 用于取得匹配元素前后所有的同辈元素
+	var $strong_1 = $("strong").siblings();
+	console.log('siblings: ',$strong_1);
+
+	//closest() 用于取得最近的匹配元素，首先检查当前元素是否匹配，如果匹配则直接返回元素本身。如果不匹配则向上查找父元素，逐级向上直到找到匹配选择器的元素。如果什么都没有找到则返回一个空的jQuery对象
+	$(document).bind("click",function(e){
+		$(e.target).closest("li").css("color","red");
+	})
+
+	//parent(),parents()与closest()的区别
+
+
+	//--CLASS-DOM操作
+	$("strong").css("color");//获取<strong>元素的样式颜色
+	console.log('strong color: ',$("strong").css("color"));
+	$("strong").css("color","orange");//设置<strong>元素的颜色为橘色
+	$("strong").css({"fontSize":"30px","color":"green"});
+
+</script>
+</html>

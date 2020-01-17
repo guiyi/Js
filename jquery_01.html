@@ -1,0 +1,33 @@
+<html>
+<title>Jquery-CSS选择器</title>
+<head>
+<script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+<style>
+	.demo{
+		color:red;
+		font-size: 30px;
+	}
+</style>
+</head>
+
+<p class="demo"> CSS Demo.</p>
+
+<script type="text/javascript">
+	$(".demo").click(function(){
+		alert('Jquery demo!')
+	})
+
+</script>
+
+
+<p onclick="demo()"> 点击我</p>
+
+<script type="text/javascript">
+	
+	function demo(){
+		alert('Javascript demo.');
+	}
+</script>
+
+
+</html>

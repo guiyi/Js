@@ -1,0 +1,239 @@
+<html>
+<title>Jquery-CSS选择器</title>
+<head>
+<script src="js/jquery-3.4.1.js" type="text/javascript"></script>
+<style>
+	div,span,p{
+		width:140px;
+		height: 140px;
+		margin: 5px;
+		background: #aaa;
+		border: #000 1px solid;
+		float: left;
+		font-size: 17px;
+		font-family: Verdanna;
+	}
+	div.mini{
+		width: 55px;
+		height: 55px;
+		background-color: #aaa;
+		font-size: 12px;
+	}
+	div.hide{
+		display: none;
+	}
+	.box{
+		width: 80%;
+		background-color: #aaa;
+	}
+</style>
+</head>
+<h1>选择器</h1>
+<div class="one" id="one">
+	<div class="mini">class is mini</div>
+</div>
+
+<div class="one" id="two" title="test">
+	<div class="mini" title="other">class is mini,title is other</div>
+	<div class="mini" title="test">class is mini,title is test</div>
+</div>
+
+<div class="one" id="one">
+	<div class="mini">class is mini</div>
+	<div class="mini">class is mini</div>
+	<div class="mini">class is mini</div>
+	<div class="mini"></div>
+</div>
+
+
+<div class="one" id="one">
+	<div class="mini">class is mini</div>
+	<div class="mini">class is mini</div>
+	<div class="mini">class is mini</div>
+	<div class="mini" title="tesst">class is mini,title is tesst</div>
+</div>
+
+<div style="display: none" class="none"></div>
+<div class="hide">class is hide's div</div>
+<div>include input's type is hidden div<input type="hidden" siez="8"></div>
+
+<span id="mover">正在执行动画的span元素.</span>
+
+<div class="box">
+
+<form id="form1" action="#">
+可用元素:<input name="add" value="可用文本框"/><br/> 
+不可用元素:<input name="email" disabled="disabled" value="不可用文本框"/><br/> 
+可用元素:<input name="che" value="可用文本框"/><br/> 
+不可用元素:<input name="name" disabled="disabled" value="不可用文本框"/><br/> 
+<br/> 
+多选框:<br/> 
+<input type="checkbox" name="newsletter" checked="checked" value="test1" / >test1
+<input type="checkbox" name="newsletter"  value="test2" / >test2
+<input type="checkbox" name="newsletter"  value="test3" / >test3
+<input type="checkbox" name="newsletter"  value="test4" / >test4
+<input type="checkbox" name="newsletter"  value="test5" / >test5
+
+
+<br/> <br/> 
+
+下拉列表1:<br/> 
+<select name="test" multiple="multiple" style="height: 100px" id="select1">
+	<option>浙江</option>
+	<option selected="selected">湖南</option>
+	<option>北京</option>
+	<option selected="selected">天津</option>
+	<option>广州</option>
+	<option>湖北</option>
+</select>
+<input type="button" value="点击查看被选项目">
+<br/> <br/> 
+
+下拉列表2:<br/> 
+<select name="test2"  style="height: 100px">
+	<option>浙江</option>
+	<option>湖南</option>
+	<option selected="selected">北京</option>
+	<option>天津</option>
+	<option>广州</option>
+	<option>湖北</option>
+
+	<div></div>
+</select>
+</form>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		//####基本选择器####
+		//改变id为one的元素的背景色
+  		$("#one").css({"background":"#bbffaa"});
+  		//改变class为mini的所有元素的背景色
+  		$(".mini").css({"background":"#eeffcc"});
+  		//改变元素名是<div>的所有元素的背景色
+  		$("div").css({"background":"#ccffee"});
+  		//改变所有元素的背景色
+  		$("*").css({"background":"#ddffff"});
+  		//改变所有的<span>元素和id为two的元素的背景色
+  		$("span, #two").css({"background":"#aaffbb"});
+
+  		//####层次选择器####
+  		//改变<body>内所有<div>的背景色
+  		$("body div").css({"background":"#bbffaa"});
+  		//改变<body>内子<div>元素的背景色
+  		$("body > div").css({"background":"#eeffcc"});
+  		//改变class为one的下一个<div>同辈元素背景色
+  		$(".one + div").css({"background":"red"});
+  		// = 等价于
+  		$(".one").next("div").css({"background":"red"});
+  		//改变id为two的元素后面的所有<div>同辈元素背景色
+  		$("#two ~ div").css({"background":"pink"});
+  		// = 等价于
+  		$("#two").nextAll("div").css({"background":"pink"});
+
+  		//####过滤选择器####
+  		//----基本过滤选择器----
+  		//改变第1个<div>元素的背景色
+  		$("div:first").css({"background":"orange"});
+  		//改变最后1个<div>元素的背景色
+  		$("div:last").css({"background":"orange"});
+  		//改变class不为one的<div>元素的背景色
+  		$("div:not(.one)").css({"background":"green"});
+  		//改变索引值为偶数的<div>元素的背景色
+  		$("div:even").css({"background":"pink"});
+  		//改变索引值为奇数的<div>元素的背景色
+  		$("div:odd").css({"background":"red"});
+  		//改变索引值等于3<div>元素的背景色
+  		$("div:eq(3)").css({"background":"purple"});
+  		//改变索引值大于3<div>元素的背景色
+  		$("div:gt(3)").css({"background":"yellow"});
+  		//改变索引值小于3<div>元素的背景色
+  		$("div:lt(3)").css({"background":"orange"});
+  		//改变所有的标题元素，例如<h1><h2><h3>...这些元素的背景色
+  		$(":header").css({"background":"red"});
+  		//改变当前正在执行动画的元素的背景色
+  		$(":animated").css({"background":"yellow"});
+  		//改变当前获取焦点的元素的背景色
+  		$(":focus").css({"background":"red"});
+
+  		//----内容过滤选择器----
+  		//改变含有文本“di”的<div>元素的背景色
+  		$("div:contains(di)").css({"background":"red"});
+  		//改变不包含子元素(包括文本元素)的<div>空元素的背景色
+  		$("div:empty").css({"background":"orange"});
+  		//改变含有class为mini元素的<div>元素的背景色
+  		$("div:has('.mini')").css({"background":"purple"});
+  		//改变含有子元素(包括文本元素)的<div>元素的背景色
+  		$("div:parent").css({"background":"green"});
+
+  		//----可见性过滤选择器----
+  		//改变所有可见的<div>元素的背景色
+  		$("div:visible").css({"background":"white"});
+  		//显示隐藏<div>元素
+  		$("div:hidden").show(3000);
+
+
+  		//----属性过滤选择器----
+  		//改变含有属性title的<div>元素的背景色
+  		$("div[title]").css({"background":"black"});
+  		//改变属性title值等于“test”的<div>元素的背景色
+  		$("div[title=test]").css({"background":"green"});
+  		//改变属性title值不等于“test”的<div>元素的背景色
+  		$("div[title!=test]").css({"background":"orange"});
+  		//改变属性title值以“te”开始的<div>元素的背景色
+  		$("div[title^=te]").css({"background":"purple"});
+  		//改变属性title值以“est”结束的<div>元素的背景色
+  		$("div[title$=est]").css({"background":"red"});
+  		//改变属性title值含有“es”的<div>元素的背景色
+  		$("div[title*=es]").css({"background":"white"});
+  		//改变含有属性id,并且属性title值含有“es”的<div>元素的背景色
+  		$("div[id][title*=es]").css({"background":"black"});
+
+  		//----子元素过滤选择器----
+  		//改变每个clas为one的<div>父元素下的第2个子元素的背景色
+  		$("div.one :nth-child(2)").css({"background":"red"});
+  		//改变每个class为one的<div>父元素下的第一个元素的背景色
+  		$("div.one :first-child").css({"background":"purple"});
+  		//改变每个class为one的<div>父元素下的最后一个元素的背景色
+  		$("div.one :last-child").css({"background":"orange"});
+  		//如果class为one的<div>父元素下只有一个子元素，那么则改变这个子元素的背景色
+  		$("div.one :only-child").css({"background":"green"});
+
+
+  		// form
+  		//----表单对象属性过滤选择器----
+  		//改变表单内可用<input>元素的值
+  		$("#form1 input:enabled").val("这里变化了！");
+  		//改变表单内不可用<input>元素的值
+  		$("#form1 input:disabled").val("这里变化了！不能写");
+  		//获取多选框选中的个数
+  		$("input:checked").length;
+  		//批量处理
+		$("#form1 input:checkbox").click(function(){ 
+		var len = $("input:checked").length; 
+		alert('亲，选'+len+'个哟~'); 
+		if(len>4){ 
+				alert('亲，最多只能选4个哟~'); 
+				return false; //另刚才勾选的取消 
+			} 
+		}) 
+  		//获取下拉框选中的内容
+  		$("select :selected").text();
+  		alert($('#select1').find('option:selected').val());
+
+  		$("#form1:last").click(function() {
+
+	        a = $("#select1").val();
+
+	        b = $("#select1 option:checked").text();
+
+	        alert("被选项目的值："+a+"，被选项目的显示值："+b+"。");
+
+	    });
+  		
+
+	});
+		
+
+</script>
+</html>
